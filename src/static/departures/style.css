@@ -1,0 +1,25 @@
+body {
+    background-color: grey;
+    font-family: 'Corbel';
+}
+
+p {
+    font-weight: bold;
+    color: black;
+    font-size: large;
+}
+
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+    text-align: center;
+}
+
+td {
+    font-weight: bold;
+}

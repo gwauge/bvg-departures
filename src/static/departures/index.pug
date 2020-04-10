@@ -1,0 +1,60 @@
+doctype html
+html
+    head
+        title= station_info.name
+        style
+            include style.css
+
+        script.
+            let info = !{JSON.stringify(station_info)};
+
+    body
+        h2 
+            | Departures at '
+            span(id="name")= station_info.name
+            | ' station (ID: 
+            span(id="id")= station_info.id
+            | )
+        p Distance to the station: 
+            span(id="distance")
+            button(id="geolocate") locate me
+        script
+            include main.js
+                
+        p This station is offering the following modes of transportation:
+        ul
+            each key in Object.keys(station_info.products)
+                li
+                    span= key
+                    | : 
+                    span= station_info.products[key]
+        p Upcoming departures:
+        table(id="departures")
+            tr
+                th Line
+                th Direction
+                th Time
+            each dep in departures
+                tr
+                    td(class="line")= span= dep.line.product[0].toUpperCase() + dep.line.product.substring(1) + " " + dep.line.name
+                    td(class="direction")= dep.direction
+                    td(class="time")= Math.floor(((new Date(dep.when) - Date.now()) / 1000) / 60) + " min"
+        
+        script.
+            // color the line names according to their "official" color
+            let lines = document.getElementsByClassName("line");
+            for (const line of lines) {
+                let text = line.innerHTML
+                if (text.includes("Subway")) {
+                    line.style.color = "blue"
+                } else if (text.includes("Suburban")) {
+                    line.style.color = "green"
+                } else if (text.includes("Bus")) {
+                    line.style.color = "rgb(82, 0, 130)"
+                } else if (text.includes("Tram")) {
+                    line.style.color = "rgb(212, 208, 0)"
+                }
+                 else if (text.includes("Regional")) {
+                    line.style.color = "rgb(201, 0, 0)"
+                }
+            }

@@ -1,0 +1,48 @@
+body {
+    background-color: grey;
+    font-family: 'Corbel';
+    text-align: center;
+}
+
+div.heading {
+    margin-top: .5em;
+    margin-bottom: .5em;
+    font-size: 65px;
+    font-weight: 700;
+}
+
+div.heading:hover {
+    color: red;
+}
+
+p {
+    font-weight: bold;
+    color: black;
+    font-size: large;
+}
+
+.staticmap {
+    /* apply margin to top and bottom of the img */
+    margin: 2em auto;
+    border: 5px solid black;
+}
+
+/* table formating */
+table { 
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+    text-align: center;
+}
+
+td {
+    font-weight: bold;
+}
