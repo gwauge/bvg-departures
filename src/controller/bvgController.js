@@ -105,6 +105,11 @@ exports.nearest = async (req, res) => {
         i++;
     }
 
+    console.log({
+        bmaps: nearestStaticMap_bmaps(latlon, nearest),
+        gmaps: nearestStaticMap_gmaps(latlon, nearest)
+    });
+
     // send nearest stations as well as URL for static maps with stations
     res.json({
         'nearest': nearest,
