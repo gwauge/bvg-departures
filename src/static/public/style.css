@@ -12,7 +12,7 @@ div.heading {
 }
 
 div.heading:hover {
-    color: red;
+    color: blue;
 }
 
 p {

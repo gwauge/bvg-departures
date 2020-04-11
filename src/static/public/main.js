@@ -21,7 +21,7 @@ document.getElementById('geolocate').addEventListener('click', async () => {
             console.log('latlon:', latlon);
 
             // get nearest stations to my location from server
-            const data = await (await fetch('/nearest/' + latlon)).json();
+            const data = await (await fetch(`/nearest/${latlon}`)).json();
             console.log(data);
 
             // add nearest stations to table
