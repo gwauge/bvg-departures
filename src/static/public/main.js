@@ -54,17 +54,9 @@ document.getElementById('geolocate').addEventListener('click', async () => {
 
             // add map to the page
             const img = document.createElement('img');
-            img.setAttribute('src', data.map.bmaps);
+            img.setAttribute('src', data.map);
             img.setAttribute('class', 'staticmap');
             document.getElementById('mapholder').appendChild(img);
-
-            // create second map with other provider
-            /*
-            const img2 = document.createElement('img');
-            img2.setAttribute('src', data.map.gmaps);
-            img2.setAttribute('class', 'staticmap');
-            document.getElementById('mapholder').appendChild(img2);
-            */
 
         });
     } else {
