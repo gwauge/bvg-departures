@@ -40,7 +40,6 @@ function nearestStaticMap_bmaps(latlon, nearest) {
         return `${coords};${icon};${label}`;
     }
 
-    const test_pp = '&pp=52.480596,13.603900;113;LOL';
     const mycoords = '52.4803,13.60376';
 
     const mapType = 'Road';
@@ -51,7 +50,7 @@ function nearestStaticMap_bmaps(latlon, nearest) {
         o: 'json',
         mapSize: '400,300',
         mapLayer: 'TrafficFlow',
-        pp: [createPP(mycoords, 80, '')],
+        pp: [createPP(latlon, 80, '')],
         key: process.env.BMAPS_KEY
     };
 
@@ -64,6 +63,8 @@ function nearestStaticMap_bmaps(latlon, nearest) {
 }
 
 exports.departures = async (req, res) => {
+    console.log('GET request to /departures');
+
     const id = req.params.id; // station ID
 
     const page_data = {}; // used to store information and submit it to the templating engine
@@ -81,6 +82,9 @@ exports.departures = async (req, res) => {
 };
 
 exports.nearest = async (req, res) => {
+    console.log(`GET request to /nearest by ${req.headers['user-agent']} through host ${req.headers['host']}`);
+
+
     const latlon = req.params.latlon.split(",");
 
     const base_url = 'https://3.vbb.transport.rest/stops/nearby';
