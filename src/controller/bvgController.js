@@ -58,7 +58,7 @@ function nearestStaticMap_bmaps(latlon, nearest) {
         params.pp.push(createPP(station.latlon, 1, station.index));
     }
 
-    const url = `http://dev.virtualearth.net/REST/v1/Imagery/Map/${mapType}/${coords}/${zoomLevel}`;
+    const url = `https://dev.virtualearth.net/REST/v1/Imagery/Map/${mapType}/${coords}/${zoomLevel}`;
     return util.createURL(url, params);
 }
 
