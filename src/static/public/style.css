@@ -25,6 +25,8 @@ p {
     /* apply margin to top and bottom of the img */
     margin: 2em auto;
     border: 5px solid black;
+    width: 400px;
+    height: 300px;
 }
 
 /* table formating */
