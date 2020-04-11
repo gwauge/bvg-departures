@@ -7,7 +7,7 @@ app = express();
 
 // use middleware
 // set templating engine
-app.set('views', 'src/static/departures');
+app.set('views', 'src/static');
 app.set('view engine', 'pug');
 
 // use middleware to handle incoming requests

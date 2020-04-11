@@ -63,7 +63,7 @@ function nearestStaticMap_bmaps(latlon, nearest) {
 }
 
 exports.departures = async (req, res) => {
-    console.log('GET request to /departures');
+    console.log(`GET request to /departures by ${req.headers['user-agent']} through host ${req.headers['host']}`);
 
     const id = req.params.id; // station ID
 
@@ -78,12 +78,11 @@ exports.departures = async (req, res) => {
     page_data["departures"] = await (await fetch(dep_url)).json();
 
     // render file index(.pug) (directory specified in app.js)
-    res.render('index', page_data);
+    res.render('departures/index', page_data);
 };
 
 exports.nearest = async (req, res) => {
     console.log(`GET request to /nearest by ${req.headers['user-agent']} through host ${req.headers['host']}`);
-
 
     const latlon = req.params.latlon.split(",");
 
