@@ -9,6 +9,6 @@ router.get('/departures/:id', bvgController.departures);
 
 router.get('/nearest/:latlon', bvgController.nearest);
 
-router.post('/nearby_staticmap', mapsController.nearbyStaticMap);
+router.get('/nearby_staticmap', mapsController.nearbyStaticMap);
 
 module.exports = router;

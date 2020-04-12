@@ -1,3 +1,18 @@
+function createURL(baseurl, params) {
+    let result = baseurl + "?";
+    for (const key of Object.keys(params)) {
+        if (Array.isArray(params[key])) {
+            for (const item of params[key]) {
+                result += key + "=" + item + "&"
+            }
+        } else {
+            result += key + "=" + params[key] + "&";
+        }
+    }
+
+    return encodeURI(result.slice(0, -1)); // remove '&' from the end
+}
+
 document.getElementById('geolocate').addEventListener('click', async () => {
 
     // remove button and label
@@ -29,11 +44,8 @@ document.getElementById('geolocate').addEventListener('click', async () => {
             table.style['display'] = 'table'; // make table visible
 
             const nearest = data.nearest;
-            let index = 1;
             for (const station of Object.values(nearest)) {
                 // add index to station object so it can be displayed properly in the table and on the map
-                station["index"] = index;
-                index += 1;
 
                 const row = document.createElement("TR");
                 const table_values = [station.index, station.name, station.id, station.distance];
@@ -52,9 +64,18 @@ document.getElementById('geolocate').addEventListener('click', async () => {
                 table.appendChild(row);
             }
 
+            // request static map from the server
+            const params = { pp: [] };
+            params.userlocation = latlon;
+
+            for (const station of Object.values(nearest)) {
+                params.pp.push(`${station.index};${station.latlon}`);
+            }
+            const map_url = createURL("/nearby_staticmap", params);
+
             // add map to the page
             const img = document.createElement('img');
-            img.setAttribute('src', data.map);
+            img.setAttribute('src', map_url);
             img.setAttribute('class', 'staticmap');
             document.getElementById('mapholder').appendChild(img);
 

@@ -1,6 +1,9 @@
 const fetch = require('node-fetch');
 const util = require('../util/util');
 
+// set map service provider (either 'gmaps' or 'bmaps')
+const mapService = 'bmaps';
+
 /**
  * Creates static map using Bing Maps, containing the users location as well as all nearby stations with a label.
  * @param {number[]} latlon Array containing the latitude and longitude of the users location. [lat, lon]
@@ -54,7 +57,7 @@ function nearestStaticMap_bmaps(latlon, nearest) {
         key: process.env.BMAPS_KEY
     };
 
-    for (const station of nearest) {
+    for (const station of Object.values(nearest)) {
         params.pp.push(createPP(station.latlon, 1, station.index));
     }
 
@@ -63,6 +66,40 @@ function nearestStaticMap_bmaps(latlon, nearest) {
 }
 
 exports.nearbyStaticMap = async (req, res) => {
-    console.log(req.body);
-    res.json(req.body);
+    // should be '/endpoint?provider=gmaps(or 'bmaps')&userlocation=lat,lon&pp=label(e.g. '1');lat,lon'
+
+    console.log(req.query);
+    let request_url = "";
+
+    // create nearby object from qurey parameters
+    const nearby = {};
+    if (Array.isArray(req.query.pp)) {
+        for (const pp of req.query.pp) {
+            const label = pp.split(";")[0];
+            const latlon = pp.split(";")[1];
+            nearby[label] = { index: label, latlon: latlon };
+        }
+    } else {
+        const label = req.query.pp.split(";")[0];
+        const latlon = req.query.pp.split(";")[1];
+        nearby[label] = { index: label, latlon: latlon };
+    }
+
+    // fetch and send image based on map service
+    if (!mapService || mapService == "gmaps") {
+        // default provider is Google Maps
+        request_url = nearestStaticMap_gmaps(req.query.userlocation, nearby);
+        const img = await (await fetch(request_url)).arrayBuffer();
+
+        res.type('png');
+        res.send(Buffer.from(img));
+
+    } else if (mapService == "bmaps") {
+        // alternative provider is Google Maps
+        request_url = nearestStaticMap_bmaps(req.query.userlocation, nearby);
+        const img = await (await fetch(request_url)).arrayBuffer();
+
+        res.type('png');
+        res.send(Buffer.from(img));
+    }
 };
