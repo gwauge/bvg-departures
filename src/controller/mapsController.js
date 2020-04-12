@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const util = require('../util/util');
 
 // set map service provider (either 'gmaps' or 'bmaps')
-const mapService = 'bmaps';
+const mapService = 'gmaps';
 
 /**
  * Creates static map using Bing Maps, containing the users location as well as all nearby stations with a label.
@@ -66,6 +66,8 @@ function nearestStaticMap_bmaps(latlon, nearest) {
 }
 
 exports.nearbyStaticMap = async (req, res) => {
+    console.log(`GET request to /nearby_staticmap by ${req.headers['user-agent']} through host ${req.headers['host']}`);
+
     // should be '/endpoint?provider=gmaps(or 'bmaps')&userlocation=lat,lon&pp=label(e.g. '1');lat,lon'
 
     console.log(req.query);

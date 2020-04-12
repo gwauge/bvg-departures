@@ -36,14 +36,13 @@ document.getElementById('geolocate').addEventListener('click', async () => {
             console.log('latlon:', latlon);
 
             // get nearest stations to my location from server
-            const data = await (await fetch(`/nearest/${latlon}`)).json();
-            console.log(data);
+            const nearest = await (await fetch(`/nearest/${latlon}`)).json();
+            console.log(nearest);
 
             // add nearest stations to table
             const table = document.getElementById("stations");
             table.style['display'] = 'table'; // make table visible
 
-            const nearest = data.nearest;
             for (const station of Object.values(nearest)) {
                 // add index to station object so it can be displayed properly in the table and on the map
 
