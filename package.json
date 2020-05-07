@@ -4,7 +4,7 @@
   "description": "Finds nearest BVG stations around you and can show their upcoming departures.",
   "main": "server.js",
   "scripts": {
-    "test": "nodemon server.js",
+    "dev": "nodemon server.js",
     "start": "node server.js"
   },
   "keywords": [

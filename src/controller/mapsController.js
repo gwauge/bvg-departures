@@ -10,6 +10,7 @@ const mapService = 'gmaps';
  * @param {object} nearest Object containing the nearest stations to the given location.
  */
 function nearestStaticMap_gmaps(latlon, nearest) {
+    //docs: https://developers.google.com/maps/documentation/maps-static/intro
 
     // specify parameters of the static map
     const params = {
